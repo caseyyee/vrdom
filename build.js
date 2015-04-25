@@ -4,9 +4,10 @@
   'use strict';
 
   var vrDevices = undefined;
-  var rightEyeCamera = document.getElementById('left');
-  var leftEyeCamera = document.getElementById('right');
+  var rightEyeCamera = document.getElementById('camera-left');
+  var leftEyeCamera = document.getElementById('camera-right');
   var fsContainer = document.getElementById('view');
+  var content = document.getElementById('content');
 
   var oq = undefined,
       pq = undefined,
@@ -150,11 +151,11 @@
     switch (key) {
       case 'V':
         // enter VR mode
-        console.log(vrDevices.headset);
         launchFs(fsContainer, {
           vrDisplay: vrDevices.headset
         });
         break;
+
       case 'Z':
         vrDevices.position.resetSensor();
         break;
@@ -186,10 +187,10 @@
       }
 
       var position = pq.copy(oq);
-      cssOrientationMatrix = cssMatrixFromOrientation(position, false);
+      cssOrientationMatrix = cssMatrixFromOrientation(position, true);
 
-      rightEyeCamera.style.transform = cssOrientationMatrix + ' ';
-      leftEyeCamera.style.transform = cssOrientationMatrix + ' ';
+      rightEyeCamera.style.transform = cssOrientationMatrix;
+      leftEyeCamera.style.transform = cssOrientationMatrix;
     }
 
     requestAnimationFrame(tick);

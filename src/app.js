@@ -2,9 +2,10 @@
   'use strict';
 
   let vrDevices;
-  let rightEyeCamera = document.getElementById('left');
-  let leftEyeCamera = document.getElementById('right');
+  let rightEyeCamera = document.getElementById('camera-left');
+  let leftEyeCamera = document.getElementById('camera-right');
   let fsContainer = document.getElementById('view');
+  let content = document.getElementById('content');
 
   let oq, pq, cssOrientationMatrix;
 
@@ -19,14 +20,14 @@
   // helper function to convert a quaternion into a matrix, optionally
   // inverting the quaternion along the way
   const matrixFromOrientation = (q, inverse) => {
-    var m = Array(16);
+    let m = Array(16);
 
-    var x = q.x, y = q.y, z = q.z, w = q.w;
+    let x = q.x, y = q.y, z = q.z, w = q.w;
 
     // if inverse is given, invert the quaternion first
     if (inverse) {
       x = x; y = -y; z = z;
-      var l = Math.sqrt(x*x + y*y + z*z + w*w);
+      let l = Math.sqrt(x*x + y*y + z*z + w*w);
       if (l == 0) {
         x = y = z = 0;
         w = 1;
@@ -36,10 +37,10 @@
       }
     }
 
-    var x2 = x + x, y2 = y + y, z2 = z + z;
-    var xx = x * x2, xy = x * y2, xz = x * z2;
-    var yy = y * y2, yz = y * z2, zz = z * z2;
-    var wx = w * x2, wy = w * y2, wz = w * z2;
+    let x2 = x + x, y2 = y + y, z2 = z + z;
+    let xx = x * x2, xy = x * y2, xz = x * z2;
+    let yy = y * y2, yz = y * z2, zz = z * z2;
+    let wx = w * x2, wy = w * y2, wz = w * z2;
 
     m[0] = 1 - (yy + zz);
     m[4] = xy - wz;
@@ -135,11 +136,11 @@
     let key = String.fromCharCode(e.which);
     switch(key) {
       case 'V': // enter VR mode
-        console.log(vrDevices.headset);
         launchFs(fsContainer, {
           vrDisplay: vrDevices.headset
-        })
+        });
         break;
+
       case 'Z':
         vrDevices.position.resetSensor();
         break;
@@ -161,10 +162,10 @@
       }
 
       let position = pq.copy(oq);
-      cssOrientationMatrix = cssMatrixFromOrientation(position, false);
+      cssOrientationMatrix = cssMatrixFromOrientation(position, true);
 
-      rightEyeCamera.style.transform = cssOrientationMatrix + ' ';
-      leftEyeCamera.style.transform = cssOrientationMatrix + ' ';
+      rightEyeCamera.style.transform = cssOrientationMatrix;
+      leftEyeCamera.style.transform = cssOrientationMatrix;
     }
 
     requestAnimationFrame(tick);
