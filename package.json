@@ -1,0 +1,17 @@
+{
+  "name": "vrtext",
+  "version": "1.0.0",
+  "description": "",
+  "main": "vrtext.js",
+  "author": "",
+  "license": "MPL",
+  "devDependencies": {
+    "babel": "^5.1.11",
+    "onchange": "^1.1.0"
+  },
+  "scripts": {
+    "start": "npm run build && npm run watch",
+    "watch": "onchange src/{*,**/*}.js -- npm run build",
+    "build": "babel src/app.js -o ./build.js"
+  }
+}
