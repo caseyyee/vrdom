@@ -1,7 +1,7 @@
 
 // helper function to convert a quaternion into a matrix, optionally
 // inverting the quaternion along the way
-exports.matrixFromOrientation = (q, inverse) => {
+let matrixFromOrientation = exports.matrixFromOrientation = (q, inverse) => {
   let m = Array(16);
 
   let x = q.x, y = q.y, z = q.z, w = q.w;
@@ -43,7 +43,7 @@ exports.matrixFromOrientation = (q, inverse) => {
   return m;
 }
 
-exports.cssMatrixFromElements = (e) => {
+let cssMatrixFromElements = exports.cssMatrixFromElements = (e) => {
   return "matrix3d(" + e.join(",") + ")";
 };
 
