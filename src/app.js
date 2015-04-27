@@ -117,10 +117,12 @@ module.exports = function() {
         position = oq;
       }
       
-      cssOrientationMatrix = utils.cssMatrixFromOrientation(position, true);
+      if (position) {
+        cssOrientationMatrix = utils.cssMatrixFromOrientation(position, true);
 
-      rightEyeCamera.style.transform = cssOrientationMatrix;
-      leftEyeCamera.style.transform = cssOrientationMatrix;
+        rightEyeCamera.style.transform = cssOrientationMatrix;
+        leftEyeCamera.style.transform = cssOrientationMatrix;
+      }
     }
 
     requestAnimationFrame(tick);
