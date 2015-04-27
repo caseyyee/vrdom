@@ -7,7 +7,7 @@
   let fsContainer = document.getElementById('view');
   let content = document.getElementById('content');
 
-  let oq, pq, cssOrientationMatrix;
+  let position, oq, pq, cssOrientationMatrix;
 
   const resize = () => {
     let width = window.innerWidth;
@@ -161,7 +161,12 @@
         pq = new THREE.Quaternion().set(state.position.x, state.position.y, state.position.z, state.position.w);
       }
 
-      let position = pq.copy(oq);
+      if (pq) {
+        position = pq.copy(oq);
+      } else {
+        position = oq;
+      }
+      
       cssOrientationMatrix = cssMatrixFromOrientation(position, true);
 
       rightEyeCamera.style.transform = cssOrientationMatrix;

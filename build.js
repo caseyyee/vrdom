@@ -9,7 +9,8 @@
   var fsContainer = document.getElementById('view');
   var content = document.getElementById('content');
 
-  var oq = undefined,
+  var position = undefined,
+      oq = undefined,
       pq = undefined,
       cssOrientationMatrix = undefined;
 
@@ -186,7 +187,12 @@
         pq = new THREE.Quaternion().set(state.position.x, state.position.y, state.position.z, state.position.w);
       }
 
-      var position = pq.copy(oq);
+      if (pq) {
+        position = pq.copy(oq);
+      } else {
+        position = oq;
+      }
+
       cssOrientationMatrix = cssMatrixFromOrientation(position, true);
 
       rightEyeCamera.style.transform = cssOrientationMatrix;
