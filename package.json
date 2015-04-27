@@ -1,17 +1,18 @@
 {
-  "name": "vrtext",
+  "name": "vrdom",
   "version": "1.0.0",
   "description": "",
-  "main": "vrtext.js",
+  "main": "index.html",
   "author": "",
   "license": "MPL",
   "devDependencies": {
-    "babel": "^5.1.11",
+    "babelify": "^6.0.2",
+    "browserify": "^9.0.8",
     "onchange": "^1.1.0"
   },
   "scripts": {
     "start": "npm run build && npm run watch",
     "watch": "onchange src/{*,**/*}.js -- npm run build",
-    "build": "babel src/app.js -o ./build.js"
+    "build": "browserify src/index.js -t babelify -o ./build.js"
   }
 }
